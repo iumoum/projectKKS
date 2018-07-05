@@ -1,0 +1,117 @@
+DB CREATE CODE
+
+CREATE TABLE `deleted_user_tb` (
+	`user_email` VARCHAR(50) NOT NULL,
+	`user_name` VARCHAR(50) NOT NULL,
+	`user_pw` VARCHAR(50) NOT NULL,
+	`user_reason` VARCHAR(50) NULL DEFAULT NULL,
+	`user_level` VARCHAR(50) NOT NULL,
+	`user_sign_up_date` DATE NOT NULL,
+	`user_deleted_date` DATE NOT NULL,
+	PRIMARY KEY (`user_email`),
+	INDEX `FK_deleted_user_tb_user_tb` (`user_name`),
+	CONSTRAINT `FK_deleted_user_tb_user_tb` FOREIGN KEY (`user_name`) REFERENCES `user_tb` (`user_name`)
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB;
+
+=============================
+
+CREATE TABLE `comment_tb` (
+	`comment_no` INT(10) NOT NULL AUTO_INCREMENT,
+	`board_no` INT(11) NOT NULL,
+	`user_name` VARCHAR(50) NOT NULL,
+	`comment_content` VARCHAR(50) NOT NULL,
+	`comment_date` DATETIME NOT NULL,
+	PRIMARY KEY (`comment_no`),
+	INDEX `FK_comment_tb_board_tb` (`board_no`),
+	INDEX `FK_comment_tb_user_tb` (`user_name`),
+	CONSTRAINT `FK_comment_tb_user_tb` FOREIGN KEY (`user_name`) REFERENCES `user_tb` (`user_name`),
+	CONSTRAINT `FK_comment_tb_board_tb` FOREIGN KEY (`board_no`) REFERENCES `board_tb` (`board_no`)
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB;
+
+============================
+
+CREATE TABLE `deleted_user_tb` (
+	`user_email` VARCHAR(50) NOT NULL,
+	`user_name` VARCHAR(50) NOT NULL,
+	`user_pw` VARCHAR(50) NOT NULL,
+	`user_reason` INT(10) NULL DEFAULT NULL,
+	`user_level` VARCHAR(50) NOT NULL,
+	`user_sign_up_date` DATETIME NOT NULL,
+	`user_deleted_date` DATETIME NOT NULL,
+	PRIMARY KEY (`user_email`),
+	INDEX `user_name` (`user_name`),
+	INDEX `user_pw` (`user_pw`),
+	INDEX `FK_deleted_user_tb_user_tb_4` (`user_level`),
+	INDEX `FK_deleted_user_tb_user_tb_5` (`user_sign_up_date`),
+	CONSTRAINT `FK_deleted_user_tb_user_tb_5` FOREIGN KEY (`user_sign_up_date`) REFERENCES `user_tb` (`user_sign_up_date`),
+	CONSTRAINT `FK_deleted_user_tb_user_tb` FOREIGN KEY (`user_email`) REFERENCES `user_tb` (`user_email`),
+	CONSTRAINT `FK_deleted_user_tb_user_tb_2` FOREIGN KEY (`user_name`) REFERENCES `user_tb` (`user_name`),
+	CONSTRAINT `FK_deleted_user_tb_user_tb_3` FOREIGN KEY (`user_pw`) REFERENCES `user_tb` (`user_pw`),
+	CONSTRAINT `FK_deleted_user_tb_user_tb_4` FOREIGN KEY (`user_level`) REFERENCES `user_tb` (`user_level`)
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB;
+
+============================
+
+CREATE TABLE `follow_tb` (
+	`user_following` VARCHAR(50) NOT NULL,
+	`user_followed` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`user_following`, `user_followed`),
+	INDEX `FK_follow_tb_user_tb_2` (`user_followed`),
+	INDEX `user_following` (`user_following`),
+	CONSTRAINT `FK_follow_tb_user_tb` FOREIGN KEY (`user_following`) REFERENCES `user_tb` (`user_name`),
+	CONSTRAINT `FK_follow_tb_user_tb_2` FOREIGN KEY (`user_followed`) REFERENCES `user_tb` (`user_name`)
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB;
+
+========================
+
+CREATE TABLE `profile_tb` (
+	`user_name` VARCHAR(50) NOT NULL,
+	`user_bio` VARCHAR(50) NULL DEFAULT NULL,
+	`user_address` VARCHAR(50) NULL DEFAULT NULL,
+	PRIMARY KEY (`user_name`),
+	CONSTRAINT `FK_profile_tb_user_tb` FOREIGN KEY (`user_name`) REFERENCES `user_tb` (`user_name`)
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB;
+
+=======================
+
+CREATE TABLE `sponsor_tb` (
+	`sponsor_no` INT(10) NOT NULL AUTO_INCREMENT,
+	`sponsor_name` VARCHAR(50) NOT NULL,
+	`sponsor_target_name` VARCHAR(50) NOT NULL,
+	`sponsor_price` INT(10) NOT NULL,
+	`sponsor_date` DATETIME NOT NULL,
+	PRIMARY KEY (`sponsor_no`),
+	INDEX `FK_sponsor_tb_user_tb` (`sponsor_name`),
+	INDEX `FK_sponsor_tb_user_tb_2` (`sponsor_target_name`),
+	CONSTRAINT `FK_sponsor_tb_user_tb` FOREIGN KEY (`sponsor_name`) REFERENCES `user_tb` (`user_name`),
+	CONSTRAINT `FK_sponsor_tb_user_tb_2` FOREIGN KEY (`sponsor_target_name`) REFERENCES `user_tb` (`user_name`)
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB;
+
+========================
+
+CREATE TABLE `user_tb` (
+	`user_email` VARCHAR(50) NOT NULL,
+	`user_pw` VARCHAR(50) NOT NULL,
+	`user_name` VARCHAR(50) NOT NULL,
+	`user_level` VARCHAR(50) NOT NULL DEFAULT 'user',
+	`user_sign_up_date` DATETIME NOT NULL,
+	PRIMARY KEY (`user_email`),
+	UNIQUE INDEX `user_name` (`user_name`),
+	INDEX `user_pw` (`user_pw`),
+	INDEX `user_level` (`user_level`),
+	INDEX `user_sign_up_date` (`user_sign_up_date`)
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB;
