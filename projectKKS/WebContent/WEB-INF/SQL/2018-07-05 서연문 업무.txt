@@ -1,0 +1,44 @@
+서연문
+
+=============================
+
+자작곡을 등록하는 기능 추가
+
+
+insertBoardForm.jsp
+
+	- 글쓴이(readonly로 session에서 user_name 항목 가져옴) , 자작곡 제목, 자작곡 설명(content), 자작곡 경로명(original) 을 action 으로 전달
+
+	- parameter 이름은 해당하는 db column 명을 카멜 표기법으로 표현하세요. ex) board_title => name="boardTitle" 
+
+	- 프로젝트 WebContent 하위에 original 폴더를 생성하고 그 안에 자작곡을 담는 방식입니다.
+
+	- 자작곡 경로명은 [ 게시글 상세보기 -  <audio> 태그의 src 속성 부분]에 들어갈 예정 입니다.
+
+insertBoardAction.jsp
+
+	- DTO에 Form으로 부터 넘겨받은 값을 대입 후 insertBoard 메서드의 매개변수로 DTO를 입력합니다.
+	
+
+Board.java
+
+	- DTO 생성하세요.
+
+BoardDao.java
+
+	- insertBoard 메서드 추가
+
+		- 매개변수 Board board
+	
+		- 리턴 데이터 타입 void
+
+		- insert 된 레코드의 수를 출력하는 문장 추가하세요.
+
+
+=============================
+
+주의 사항
+
+주석 꼭 써주시고, 값을 전달 받을 때 테스트하는 문장을 꼭 작성해주세요.
+
+DB 테이블의 column들을 꼼꼼히 파악해 주세요. ( 예를 들어, 기본 값 )
