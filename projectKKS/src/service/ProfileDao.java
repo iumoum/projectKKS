@@ -107,10 +107,10 @@ public class ProfileDao {
 	// profile 테이블의 특정 레코드를 조회하는 쿼리 
 	// 매개변수는 사용자 이름. 특정 레코드를 조회하기 위함
 	// 리턴 데이터 타입은 ProfileKJW 클래스 데이터 타입입니다. 조회된 결과를 DTO를 통해 전달 하기 위함입니다.
-	public Profile selectForUpdateProfile(String userName) {
+	public Profile selectProfile(String userName) {
 		Connection conn = null;
-		PreparedStatement pstmtSelectForUpdateProfile = null;
-		ResultSet rsSelectForUpdateProfile = null;
+		PreparedStatement pstmtSelectProfile = null;
+		ResultSet rsSelectProfile = null;
 		Profile profile = null;
 		
 		// userName 변수 체크
@@ -130,22 +130,22 @@ public class ProfileDao {
 			conn = DriverManager.getConnection(dbUrl,dbUser,dbPw);
 			
 			// 위의 쿼리 준비
-			pstmtSelectForUpdateProfile = conn.prepareStatement(sqlSelectForUpdateProfile);
+			pstmtSelectProfile = conn.prepareStatement(sqlSelectForUpdateProfile);
 			
 			// ?에 값 대입
-			pstmtSelectForUpdateProfile.setString(1, userName);
+			pstmtSelectProfile.setString(1, userName);
 			
 			// 쿼리 실행
-			rsSelectForUpdateProfile = pstmtSelectForUpdateProfile.executeQuery();
+			rsSelectProfile = pstmtSelectProfile.executeQuery();
 			
 			// 조회된 결과가 있다면
-			if(rsSelectForUpdateProfile.next()) {
+			if(rsSelectProfile.next()) {
 				profile = new Profile();
 				
 				// Profile DTO에 조회된 데이터들을 대입
-				profile.setUserName(rsSelectForUpdateProfile.getString("user_name"));
-				profile.setUserBio(rsSelectForUpdateProfile.getString("user_bio"));
-				profile.setUserAddress(rsSelectForUpdateProfile.getString("user_address"));
+				profile.setUserName(rsSelectProfile.getString("user_name"));
+				profile.setUserBio(rsSelectProfile.getString("user_bio"));
+				profile.setUserAddress(rsSelectProfile.getString("user_address"));
 				
 				// 대입된 값 체크
 				System.out.println("DTO check userName on selectForUpdateProfile : " + profile.getUserName());
@@ -158,17 +158,17 @@ public class ProfileDao {
 			System.out.println("DB와 관련된 예외가 발생하였습니다!");
 			sqlException.printStackTrace();
 		} finally {
-			if(rsSelectForUpdateProfile != null) {
+			if(rsSelectProfile != null) {
 				try {
-					rsSelectForUpdateProfile.close();
+					rsSelectProfile.close();
 				} catch (SQLException sqlException) {
 					System.out.println("DB와 관련된 예외가 발생하였습니다!");
 					sqlException.printStackTrace();
 				}
 			}
-			if(pstmtSelectForUpdateProfile != null) {
+			if(pstmtSelectProfile != null) {
 				try {
-					pstmtSelectForUpdateProfile.close();
+					pstmtSelectProfile.close();
 				} catch (SQLException sqlException) {
 					System.out.println("DB와 관련된 예외가 발생하였습니다!");
 					sqlException.printStackTrace();

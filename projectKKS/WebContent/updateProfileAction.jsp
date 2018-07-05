@@ -1,3 +1,4 @@
+<!-- 마지막 수정일자  2018-07-25 김지완 -->
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ page import="service.*" %>
 <!DOCTYPE html>
@@ -26,16 +27,11 @@
 			System.out.println("userBio updateProfileAction.jsp : " + userBio);
 			System.out.println("userAddress updateProfileAction.jsp : " + userAddress);
 			
-			/* 세션 처리 미완성으로 인한 주석 처리
-				// profile DTO에 값 대입
-				profile.setUserName(sessionName);
-				profile.setUserBio(userBio);
-				profile.setUserAddress(userAddress); 
-			*/
-			
-			profile.setUserName("iumium");
+			// profile DTO에 값 대입
+			profile.setUserName(sessionName);
 			profile.setUserBio(userBio);
 			profile.setUserAddress(userAddress); 
+			
 			
 			// updateProfile 메서드를 호출하여 업데이트 
 			profileDao.updateProfile(profile);
