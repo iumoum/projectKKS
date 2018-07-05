@@ -17,9 +17,6 @@
 		String userEmail = request.getParameter("userEmail");
 		String userPw = request.getParameter("userPw");
 		
-		//user dto 객체 생성
-		User user = new User();
-		
 		//dao객체 생성.
 		UserDao userDao = new UserDao();
 		
@@ -29,7 +26,7 @@
 		
 		//이런 loginCheck에 들어있는 String 형식의 텍스트가 로그인 성공일시 sessionUser메서드 호출과 동시에 세션생성.
 		if(loginCheck.equals("로그인 성공")){
-			userDao.sessionUser(userEmail, user);
+			User user = userDao.sessionUser(userEmail);
 			session.setAttribute("sessionName", user.getUserName());
 			session.setAttribute("sessionLevel", user.getUserLevel());
 			

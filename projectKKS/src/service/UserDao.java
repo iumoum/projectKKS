@@ -7,11 +7,12 @@ import java.sql.*;
 public class UserDao {
 
 		
-	public User sessionUser(String userEmail, User user) {
+	public User sessionUser(String userEmail) {
 	//리턴 타입은 유져로 지정하고 스트링과 유저 데이터 타입인 매개변수 두개를 선언한다.
 		Connection connsessionUser = null;
 		PreparedStatement pstmtsessionUser = null;
 		ResultSet rssessionUser = null;
+		User user = null;
 		//초기값 지정.
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -29,6 +30,7 @@ public class UserDao {
 			//쿼리 실행.
 			System.out.println(pstmtsessionUser);
 			if(rssessionUser.next()) {
+				user = new User();
 				user.setUserName(rssessionUser.getString("user_name"));
 				user.setUserLevel(rssessionUser.getString("user_level"));
 				//쿼리의 조건대로 뽑아온 레코드들 중에서 user_name과 user_level을 user DTO에 셋팅.

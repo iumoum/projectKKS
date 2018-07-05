@@ -12,6 +12,7 @@
 		String sessionName = (String)session.getAttribute("sessionName");
 		String sessionLevel = (String)session.getAttribute("sessionLevel");
 		System.out.println(sessionName);
+		System.out.println(sessionLevel);
 		
 		if(sessionName==null){%>
 			<h3><a href="<%=request.getContextPath() %>/insertUSerForm.jsp">회원가입</a></h3>
