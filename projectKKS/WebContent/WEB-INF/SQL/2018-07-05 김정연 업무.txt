@@ -1,0 +1,65 @@
+김정연   db 계정
+
+==============================
+
+회원 가입 기능 추가
+
+User.java
+
+	- userEmail, userPw, userName, userLevel, userSignUpDate  멤버 변수 생성
+
+	- getter setter 생성
+
+UserDao.java 
+	
+	- user_tb 테이블에 레코드 하나를 추가하는 메서드
+
+	- insertUser 메서드 
+
+		- 매개변수 User user
+
+		- 리턴 데이터 타입 void
+
+		- executeUpdate의 결과를 출력하는 문장도 추가하세요.
+
+Profile.java
+
+	- DTO 생성
+
+ProfileDao.java
+
+	- insertProfile 메서드 
+	
+		- 매개변수 String userName 
+		
+		- 리턴 데이터 타입 void
+
+		- 자기소개와, 주소 부분은 기본 값 null로 되어있기 때문에 쿼리로 추가하지 마세요.
+
+
+
+insertUserForm.jsp
+
+	- 회원 가입 폼 테이블 형식으로 간단하게
+
+	- parameter 이름은 DTO의 멤버 변수 이름과 같게
+
+insertUserAction.jsp
+
+	- 객체 이름 user & userDao, profile & profileDao
+
+====================================================================
+
+기능의 구현 틀
+
+
+form 에서 입력받은 정보들을 action에서 넘겨받고 user DTO에 전달후 DTO를 userDao에 매개변수로 입력, insert 메서드 실행
+ 
+
+=======================================================================
+
+주의 사항
+
+주석을 꼭 적으세요, 중간 중간 값을 넘겨 받을 때 잘 넘어 왔는지 테스트 하는 문장을 추가해주세요.
+
+	

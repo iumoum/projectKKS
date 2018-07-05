@@ -1,5 +1,13 @@
 DB CREATE CODE
 
+DB 명 : KKS
+
+DB 계정명 : KKS
+
+DB 비밀번호 : KKS123
+
+
+
 CREATE TABLE `deleted_user_tb` (
 	`user_email` VARCHAR(50) NOT NULL,
 	`user_name` VARCHAR(50) NOT NULL,
@@ -34,27 +42,21 @@ ENGINE=InnoDB;
 
 ============================
 
-CREATE TABLE `deleted_user_tb` (
-	`user_email` VARCHAR(50) NOT NULL,
+CREATE TABLE `board_tb` (
+	`board_no` INT(10) NOT NULL,
 	`user_name` VARCHAR(50) NOT NULL,
-	`user_pw` VARCHAR(50) NOT NULL,
-	`user_reason` INT(10) NULL DEFAULT NULL,
-	`user_level` VARCHAR(50) NOT NULL,
-	`user_sign_up_date` DATETIME NOT NULL,
-	`user_deleted_date` DATETIME NOT NULL,
-	PRIMARY KEY (`user_email`),
+	`board_title` VARCHAR(50) NOT NULL,
+	`board_content` VARCHAR(50) NOT NULL,
+	`board_view` INT(10) NOT NULL DEFAULT '0',
+	`board_star` INT(10) NOT NULL DEFAULT '0',
+	`board_date` DATETIME NOT NULL,
+	PRIMARY KEY (`board_no`),
 	INDEX `user_name` (`user_name`),
-	INDEX `user_pw` (`user_pw`),
-	INDEX `FK_deleted_user_tb_user_tb_4` (`user_level`),
-	INDEX `FK_deleted_user_tb_user_tb_5` (`user_sign_up_date`),
-	CONSTRAINT `FK_deleted_user_tb_user_tb_5` FOREIGN KEY (`user_sign_up_date`) REFERENCES `user_tb` (`user_sign_up_date`),
-	CONSTRAINT `FK_deleted_user_tb_user_tb` FOREIGN KEY (`user_email`) REFERENCES `user_tb` (`user_email`),
-	CONSTRAINT `FK_deleted_user_tb_user_tb_2` FOREIGN KEY (`user_name`) REFERENCES `user_tb` (`user_name`),
-	CONSTRAINT `FK_deleted_user_tb_user_tb_3` FOREIGN KEY (`user_pw`) REFERENCES `user_tb` (`user_pw`),
-	CONSTRAINT `FK_deleted_user_tb_user_tb_4` FOREIGN KEY (`user_level`) REFERENCES `user_tb` (`user_level`)
+	CONSTRAINT `FK_board_tb_user_tb` FOREIGN KEY (`user_name`) REFERENCES `user_tb` (`user_name`)
 )
 COLLATE='euckr_korean_ci'
 ENGINE=InnoDB;
+
 
 ============================
 
