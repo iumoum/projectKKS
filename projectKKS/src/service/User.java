@@ -12,18 +12,21 @@ public class User {
 		return userEmail;
 	}
 	public void setUserEmail(String userEmail) {
+		System.out.println(userEmail);
 		this.userEmail = userEmail;
 	}
 	public String getUserPw() {
 		return userPw;
 	}
 	public void setUserPw(String userPw) {
+		System.out.println(userPw);
 		this.userPw = userPw;
 	}
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
+		System.out.println(userName);
 		this.userName = userName;
 	}
 	public String getUserLevel() {

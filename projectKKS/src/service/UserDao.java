@@ -5,6 +5,95 @@ import service.*;
 import java.sql.*;
 
 public class UserDao {
+	
+	public String updateUser(String reUserPw, String sessionName) {
+		Connection conn = null;
+		PreparedStatement pstmtupdateUser = null;
+		String text = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		
+		
+			String dbUrl = "jdbc:mysql://localhost:3306/kks?useUnicode=true&characterEncoding=euckr";
+			String dbUser = "KKS";
+			String dbPw = "KKS123";
+			
+			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
+	
+			pstmtupdateUser = conn.prepareStatement("UPDATE user_tb SET user_pw = ? WHERE user_name = ?;");
+			pstmtupdateUser.setString(1,  reUserPw);
+			pstmtupdateUser.setString(2, sessionName);
+			
+			pstmtupdateUser.executeUpdate();
+			
+			text = "수정성공";
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return text;
+	}
+	
+	public User updateUserValue(String sessionName) {
+		Connection conn = null;
+		PreparedStatement updateUserValue = null;
+		ResultSet rs = null;
+		User user = new User();
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		
+			String dbUrl = "jdbc:mysql://localhost:3306/kks?useUnicode=true&characterEncoding=euckr";
+			String dbUser = "KKS";
+			String dbPw = "KKS123";
+			
+			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
+	
+			updateUserValue = conn.prepareStatement("SELECT * FROM user_tb where user_name = ?");
+			updateUserValue.setString(1, sessionName);
+			
+			rs = updateUserValue.executeQuery();
+			System.out.println(updateUserValue+"<=pstmt");
+			if(rs.next()) {
+				user.setUserEmail(rs.getString("user_email"));
+				user.setUserName(rs.getString("user_name"));
+				user.setUserPw(rs.getString("user_pw"));
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(updateUserValue != null) {
+				try {
+					updateUserValue.close();
+				} catch (SQLException sqlException) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다!");
+					sqlException.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException sqlException) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다!");
+					sqlException.printStackTrace();
+				}
+			}
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException sqlException) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다!");
+					sqlException.printStackTrace();
+				}
+			}
+			//객체 종료.
+		}
+		return user;
+	}
 
 		
 	public User sessionUser(String userEmail) {
